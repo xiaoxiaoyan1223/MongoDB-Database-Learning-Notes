@@ -1,0 +1,8 @@
+----------------MongoDB基础操作------------------
+·显示数据库:show databases
+·选择数据库:use databasename
+  注意：如果选择的是不存在的数据库，不会报错，后期当该数据库中有数据时会自动创建
+·创建集合:db.createCollection('集合名')  #后期可以插入数据隐式创建集合
+·查看集合:show collections
+·删除集合:db.集合名.drop()
+·删除数据库:db.dropDatabase()

@@ -1,0 +1,40 @@
+明确需求：我们在DOS窗口中直接输入命令就可以登录数据库，这在实战工作中是不被允许的，如何解决
+使用权限机制，开启验证模式即可
+创建账号： db.createUserv({
+    "user":"账号",
+    "pwd":"密码",
+    "roles":[{
+        role:"角色",
+        db:"所属数据库"
+    }]
+})
+// 角色种类
+超级用户角色：root
+数据库用户角色：read、readWrite
+数据库管理角色：dbAdmin、userAdmin
+集群管理角色：clusterAdmin、clusterMonitor、hostManager
+备份恢复角色：backup、restore
+所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabse、dbAdminAnyDatabase
+//角色说明
+root:只在admin数据库中可用，超级账号，超级权限
+read:允许用户读取指定数据库
+readWrite:允许用户读写指定数据库
+dbAdmin:允许用户在指定数据库中执行管理函数，如创建索引、删除、查看统计或访问system.profile
+dbAdminAnyDatabase: 只在admin数据库中可用，赋予用户所有数据库的dbAdmin权限
+&&&&&&&&&&&&&&&&&&操作步骤&&&&&&&&&&&&&&&&&&&&&&
+a、添加超级管理员
+use admin
+db.createUser({
+	"user":"lxy",
+	"pwd":"ggy111",
+	"roles":[{
+		role:"root",
+		db:"admin"
+	}],
+})
+b、退出卸载服务
+bin\mongod --remove
+c、安装需要身份验证的MongoDB服务并启动服务
+d、超级管理员账号登录
+mongo ip地址:端口 /数据库名 -u 账号 -p 密码
+mongo 127.0.0.1:27017/admin -u root -p root
